@@ -1,7 +1,7 @@
 <?php 
 
 
-class Sqlconfig extends PDO{
+class SqlConfig extends PDO{
   private $conn;
 
   public function __construct(){
