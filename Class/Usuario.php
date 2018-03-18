@@ -62,4 +62,42 @@ class Usuario{
       )); */
      } 
 
+
+public static function getList(){
+  $obj = new SqlConfig();
+  $stmt = $obj->select("SELECT * FROM usuarios");
+
+ return $stmt;
+
+}
+
+
+public static function search($nome){
+  $sql = new SqlConfig();
+ $stmt = $sql->select("SELECT * FROM usuarios where nome like :SEARCH;", array(":SEARCH"=>"%".$nome."%"));
+
+ return $stmt;
+}
+
+public function login($login, $senha){
+  $loger = new SqlConfig();
+  $result = $loger->select("SELECT * FROM usuarios WHERE nome =:NOME and senha = :SENHA", array(
+    ":NOME"=>$login,
+    ":SENHA"=>$senha));
+
+   if(count($result)>0){
+    $row = $result[0];
+    $this->nome = $row['nome'];
+    $this->nacionalidade = $row['dtcadastro'];
+
+    echo "Usuário Logado com sucesso";
+   }else{
+    echo "Falha na autenticação";
+   } 
+
+
+}
+
+
+
 }
